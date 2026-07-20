@@ -112,6 +112,24 @@ tr:nth-child(even){ background:#f7f3ea; }
 
 .contact-wrap{ padding:0 6vw; max-width:720px; }
 .contact-wrap p{ margin-bottom:20px; color:var(--text-dim); }
+.external-links{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px; }
+.external-links a{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  padding:8px 14px;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+.external-links a:hover{
+  color:#fff;
+  border-color:rgba(226,0,26,.65);
+  background:rgba(226,0,26,.12);
+}
 .contact__form{ display:grid; gap:16px; padding:24px; border:1px solid rgba(255,255,255,.08); border-radius:18px; background:rgba(255,255,255,.03); box-shadow:var(--shadow); }
 .form-row{ display:grid; gap:8px; }
 .form-row--inline{ grid-template-columns:auto 1fr; align-items:center; gap:10px; }
