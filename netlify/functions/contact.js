@@ -22,7 +22,7 @@ exports.handler = async (event) => {
     const data = JSON.parse(event.body || '{}')
     const { name, email, phone, subject, message } = data
     const smtpUser = cleanEnv(process.env.SMTP_USER || process.env.USER)
-    const smtpPass = cleanEnv(process.env.SMTP_PASS || process.env.PASS)
+    const smtpPass = cleanEnv(process.env.SMTP_PASS || process.env.PASS).replace(/\s+/g, '')
     const contactTo = cleanEnv(process.env.CONTACT_TO || process.env.SMTP_TO)
     const smtpFrom = cleanEnv(process.env.SMTP_FROM || smtpUser)
 
@@ -46,9 +46,10 @@ exports.handler = async (event) => {
     }
 
     const transporter = nodemailer.createTransport({
+      service: 'gmail',
       host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
       auth: {
         user: smtpUser,
         pass: smtpPass
@@ -97,7 +98,7 @@ exports.handler = async (event) => {
     let message = 'No se pudo enviar el mensaje. Revisa la configuracion SMTP.'
 
     if (error && (error.code === 'EAUTH' || error.responseCode === 535)) {
-      message = 'Error de autenticacion SMTP. Verifica usuario, contrasena y App Password de Gmail.'
+      message = 'Error de autenticacion SMTP. Usa SMTP_USER con Gmail real y SMTP_PASS con App Password de 16 caracteres (sin espacios).'
     }
 
     return {
