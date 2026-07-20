@@ -1,58 +1,23 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Bike, CalendarClock, CircleDollarSign, ShieldCheck, Star, MapPin, Phone, Mail, Facebook, Instagram, MessageCircle, Gauge, Sparkles, Shield } from 'lucide-react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 import './App.css'
 
-const bikes = [
-  {
-    name: 'Yamaha R6',
-    category: 'Deportiva',
-    price: '$12,500',
-    image: 'https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=900&q=80',
-    description: 'Desempeño de alto nivel para conductores que buscan precisión y velocidad.'
-  },
-  {
-    name: 'Kawasaki ZX-6R',
-    category: 'Supersport',
-    price: '$13,200',
-    image: 'https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=900&q=80',
-    description: 'Equilibrio perfecto entre potencia, estabilidad y diseño agresivo.'
-  },
-  {
-    name: 'Ducati Panigale V2',
-    category: 'Superbike',
-    price: '$18,900',
-    image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80',
-    description: 'Tecnología premium y una experiencia de conducción excepcional.'
-  }
-]
-
-const promotions = [
-  { title: 'Financiamiento flexible', description: 'Planes desde 24 meses con bajos intereses.', icon: CircleDollarSign },
-  { title: 'Accesorios incluidos', description: 'Llantas, casco y mantenimiento básico al activar la compra.', icon: ShieldCheck },
-  { title: 'Primer servicio gratis', description: 'Incluido en tu primera compra en la agencia.', icon: Sparkles }
-]
-
-const brands = ['Yamaha', 'Honda', 'Kawasaki', 'Suzuki', 'Ducati', 'KTM']
-
-const testimonials = [
-  { name: 'Luis M.', role: 'Cliente premium', comment: 'La atención fue excelente y el proceso de compra fue muy claro.', stars: 5, image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
-  { name: 'Ana P.', role: 'Compradora recurrente', comment: 'Encontré la moto ideal y el equipo me guiaron en cada paso.', stars: 5, image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80' }
-]
-
 function App() {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    modelo: 'Yamaha R6',
+    mensaje: '',
+    acepto: false
+  })
   const [status, setStatus] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (event) => {
-    const { name, value } = event.target
-    setFormData((current) => ({ ...current, [name]: value }))
+    const { name, value, type, checked } = event.target
+    setFormData((current) => ({
+      ...current,
+      [name]: type === 'checkbox' ? checked : value
+    }))
   }
 
   const handleSubmit = async (event) => {
@@ -64,7 +29,13 @@ function App() {
       const response = await fetch('/.netlify/functions/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          name: formData.nombre,
+          email: formData.email,
+          phone: '',
+          subject: formData.modelo,
+          message: formData.mensaje
+        })
       })
 
       const data = await response.json()
@@ -72,267 +43,293 @@ function App() {
         throw new Error(data.message || 'No se pudo enviar el mensaje')
       }
 
-      setStatus({ type: 'success', message: data.message })
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+      setStatus({ type: 'success', message: data.message || 'Mensaje enviado correctamente.' })
+      setFormData({
+        nombre: '',
+        email: '',
+        modelo: 'Yamaha R6',
+        mensaje: '',
+        acepto: false
+      })
     } catch (error) {
-      setStatus({ type: 'error', message: error.message })
+      setStatus({ type: 'error', message: error.message || 'No se pudo enviar el mensaje.' })
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#home" className="text-xl font-semibold tracking-[0.3em]">MOTOXTREME</a>
-          <div className="hidden gap-6 md:flex">
-            <a href="#catalogo" className="text-sm text-slate-300 hover:text-red-500">Catálogo</a>
-            <a href="#promociones" className="text-sm text-slate-300 hover:text-red-500">Promociones</a>
-            <a href="#horarios" className="text-sm text-slate-300 hover:text-red-500">Horarios</a>
-            <a href="#contacto" className="text-sm text-slate-300 hover:text-red-500">Contacto</a>
-          </div>
-          <a href="#contacto" className="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-500">Contáctanos</a>
+    <>
+      <div className="start-stripe" aria-hidden="true"></div>
+
+      <header className="topbar">
+        <div className="topbar__brand">
+          <span className="topbar__mark">R</span>
+          <span className="topbar__name">SPORTBIKES</span>
+        </div>
+        <nav className="topbar__nav" aria-label="Navegacion principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#conceptos">Conceptos</a>
+          <a href="#modelos">Modelos</a>
+          <a href="#comparativa">Comparativa</a>
+          <a href="#videos">Videos</a>
+          <a href="#contacto">Contacto</a>
         </nav>
       </header>
 
-      <main id="home">
-        <section className="relative overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1558980664-2506fca6bfc2?auto=format&fit=crop&w=1600&q=80" alt="Moto deportiva de alto rendimiento" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-900/30" />
-          <div className="relative mx-auto grid min-h-[90vh] max-w-7xl items-center gap-8 px-4 py-24 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <p className="mb-4 text-sm uppercase tracking-[0.35em] text-red-500">Agencia premium de motos</p>
-              <h1 className="text-4xl font-semibold leading-tight sm:text-6xl">Potencia, diseño y tecnología sobre dos ruedas.</h1>
-              <p className="mt-6 max-w-2xl text-lg text-slate-300">Descubre motocicletas deportivas, urbanas y touring con asesoría experta, financiamiento y servicio especializado.</p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a href="#catalogo" className="rounded-full bg-red-600 px-6 py-3 font-semibold transition hover:bg-red-500">Ver catálogo</a>
-                <a href="#contacto" className="rounded-full border border-white/20 px-6 py-3 font-semibold transition hover:border-red-500 hover:text-red-500">Contáctanos</a>
-              </div>
-            </motion.div>
+      <main>
+        <section className="hero" id="inicio">
+          <img
+            className="hero__img"
+            src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=1400&q=80"
+            alt="Moto deportiva en carretera"
+          />
+          <div className="hero__overlay"></div>
+          <div className="hero__content">
+            <p className="eyebrow">Guia rapida - motociclismo deportivo</p>
+            <h1 className="hero__title">Potencia, precision y estilo.</h1>
+            <p className="hero__sub">
+              Descubre como funcionan las sportbikes, que modelos destacan y donde disfrutar de la experiencia sobre dos ruedas.
+            </p>
+            <a href="#modelos" className="btn btn--primary">Ver modelos ↓</a>
+          </div>
+        </section>
 
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur">
-              <div className="flex items-center gap-3 text-red-500">
-                <Bike size={24} />
-                <span className="font-semibold uppercase tracking-[0.25em]">Especialistas en rendimiento</span>
-              </div>
-              <ul className="mt-6 space-y-4 text-sm text-slate-200">
-                <li className="flex items-center gap-3"><Gauge className="text-red-500" /> Asesoría experta para elegir el modelo ideal</li>
-                <li className="flex items-center gap-3"><Shield className="text-red-500" /> Garantía y mantenimiento profesional</li>
-                <li className="flex items-center gap-3"><CalendarClock className="text-red-500" /> Pruebas de manejo programadas</li>
+        <section className="section section--light" id="conceptos">
+          <div className="section-head">
+            <span className="rpm">01</span>
+            <h2>Conceptos clave</h2>
+            <div className="redline" aria-hidden="true"></div>
+          </div>
+
+          <div className="content-grid">
+            <div className="panel">
+              <h3>Titulos</h3>
+              <p>Las sportbikes se reconocen por su enfoque en rendimiento, agarre y respuesta inmediata.</p>
+              <ol>
+                <li>Motor de altas revoluciones</li>
+                <li>Chasis rigido</li>
+                <li>Frenada precisa</li>
+              </ol>
+            </div>
+
+            <div className="panel">
+              <h3>Listas utiles</h3>
+              <ul>
+                <li>Casco integral</li>
+                <li>Guantes de cuero</li>
+                <li>Protecciones</li>
               </ul>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="rounded-3xl border border-white/10 bg-slate-900/70 p-8">
-                <p className="text-sm uppercase tracking-[0.35em] text-red-500">Sobre nosotros</p>
-                <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Más de 15 años llevando emoción y confianza a los riders.</h2>
-                <p className="mt-4 text-slate-300">MotoXtreme combina tecnología, servicio humano y un catálogo exclusivo para que cada cliente encuentre la motocicleta adecuada para su estilo y necesidades.</p>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl bg-slate-800/80 p-4">
-                    <h3 className="font-semibold">Misión</h3>
-                    <p className="mt-2 text-sm text-slate-300">Ofrecer experiencias de compra y conducción premium, seguras y memorables.</p>
-                  </div>
-                  <div className="rounded-2xl bg-slate-800/80 p-4">
-                    <h3 className="font-semibold">Visión</h3>
-                    <p className="mt-2 text-sm text-slate-300">Ser la agencia de referencia en innovación, servicio y pasión por las motos.</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="overflow-hidden rounded-3xl border border-white/10">
-                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80" alt="Motocicleta deportiva en showroom" className="h-full w-full object-cover" />
-              </motion.div>
+              <p>El equipamiento correcto marca la diferencia entre una salida comoda y una experiencia segura.</p>
             </div>
           </div>
         </section>
 
-        <section id="catalogo" className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-sm uppercase tracking-[0.35em] text-red-500">Catálogo</p>
-                <h2 className="text-3xl font-semibold sm:text-4xl">Modelos destacados</h2>
+        <section className="section" id="modelos">
+          <div className="section-head">
+            <span className="rpm">02</span>
+            <h2>Modelos destacados</h2>
+            <div className="redline" aria-hidden="true"></div>
+          </div>
+
+          <div className="cards">
+            <article className="card">
+              <img src="https://images.unsplash.com/photo-1558980664-2506fca6bfc2?auto=format&fit=crop&w=900&q=80" alt="Yamaha R6" />
+              <div className="card__body">
+                <h3>Yamaha R6</h3>
+                <p className="card__tag">Supersport 600</p>
+                <p>Ideal para quienes buscan una moto agil y muy vinculada al circuito.</p>
+                <a href="https://www.yamaha-motor.eu/" target="_blank" rel="noopener noreferrer">Ver marca</a>
               </div>
-              <p className="max-w-xl text-slate-300">Explora nuestras opciones de motos deportivas, urbanas, touring y doble propósito.</p>
-            </div>
+            </article>
 
-            <div className="grid gap-6 lg:grid-cols-3">
-              {bikes.map((bike, index) => (
-                <motion.article key={bike.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70">
-                  <img src={bike.image} alt={bike.name} className="h-56 w-full object-cover" />
-                  <div className="p-6">
-                    <p className="text-sm uppercase tracking-[0.25em] text-red-500">{bike.category}</p>
-                    <h3 className="mt-2 text-2xl font-semibold">{bike.name}</h3>
-                    <p className="mt-3 text-sm text-slate-300">{bike.description}</p>
-                    <div className="mt-5 flex items-center justify-between">
-                      <span className="text-xl font-semibold">{bike.price}</span>
-                      <a href="#contacto" className="font-semibold text-red-500">Solicitar info</a>
-                    </div>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="promociones" className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-slate-900/70 p-8">
-            <div className="mb-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-red-500">Promociones</p>
-              <h2 className="text-3xl font-semibold sm:text-4xl">Beneficios para tu compra</h2>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {promotions.map((item) => {
-                const Icon = item.icon
-                return (
-                  <div key={item.title} className="rounded-2xl border border-white/10 bg-slate-800/70 p-6">
-                    <Icon size={28} className="text-red-500" />
-                    <h3 className="mt-4 text-xl font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm text-slate-300">{item.description}</p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-red-500">Marcas</p>
-              <h2 className="text-3xl font-semibold sm:text-4xl">Trabajamos con las mejores marcas</h2>
-            </div>
-            <div className="grid gap-4 rounded-3xl border border-white/10 bg-slate-900/70 p-6 sm:grid-cols-3 lg:grid-cols-6">
-              {brands.map((brand) => <div key={brand} className="rounded-2xl bg-slate-800/70 p-4 text-center font-semibold uppercase tracking-[0.25em]">{brand}</div>)}
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-red-500">Galería</p>
-              <h2 className="text-3xl font-semibold sm:text-4xl">Momentos que inspiran</h2>
-            </div>
-            <Swiper modules={[Navigation, Pagination, Autoplay]} spaceBetween={20} slidesPerView={1} navigation pagination={{ clickable: true }} autoplay={{ delay: 3000 }} breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}>
-              {["https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1558980664-2506fca6bfc2?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80"].map((image, index) => (
-                <SwiperSlide key={index}><img src={image} alt={`Moto deportiva ${index + 1}`} className="h-72 w-full rounded-3xl object-cover" /></SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section>
-
-        <section className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-red-500">Testimonios</p>
-              <h2 className="text-3xl font-semibold sm:text-4xl">Lo que dicen nuestros clientes</h2>
-            </div>
-            <Swiper modules={[Autoplay]} spaceBetween={20} slidesPerView={1} autoplay={{ delay: 4000 }} breakpoints={{ 768: { slidesPerView: 2 } }}>
-              {testimonials.map((item) => (
-                <SwiperSlide key={item.name}>
-                  <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-6">
-                    <img src={item.image} alt={item.name} className="h-16 w-16 rounded-full object-cover" />
-                    <div className="mt-4 flex gap-1 text-yellow-400">{Array.from({ length: item.stars }).map((_, i) => <Star key={i} size={16} />)}</div>
-                    <p className="mt-4 text-slate-300">“{item.comment}”</p>
-                    <p className="mt-4 font-semibold">{item.name}</p>
-                    <p className="text-sm text-slate-400">{item.role}</p>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section>
-
-        <section id="horarios" className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-slate-900/70 p-8">
-            <div className="mb-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-red-500">Horarios</p>
-              <h2 className="text-3xl font-semibold sm:text-4xl">Estamos para atenderte</h2>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-slate-800 text-slate-200">
-                  <tr><th className="p-3">Día</th><th className="p-3">Horario</th></tr>
-                </thead>
-                <tbody>
-                  <tr className="border-t border-white/10"><td className="p-3">Lunes</td><td className="p-3">9:00 - 18:00</td></tr>
-                  <tr className="border-t border-white/10"><td className="p-3">Martes</td><td className="p-3">9:00 - 18:00</td></tr>
-                  <tr className="border-t border-white/10"><td className="p-3">Miércoles</td><td className="p-3">9:00 - 18:00</td></tr>
-                  <tr className="border-t border-white/10"><td className="p-3">Jueves</td><td className="p-3">9:00 - 18:00</td></tr>
-                  <tr className="border-t border-white/10"><td className="p-3">Viernes</td><td className="p-3">9:00 - 19:00</td></tr>
-                  <tr className="border-t border-white/10"><td className="p-3">Sábado</td><td className="p-3">9:00 - 17:00</td></tr>
-                  <tr className="border-t border-white/10"><td className="p-3">Domingo</td><td className="p-3">Cerrado</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section id="contacto" className="px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-slate-900/70 p-8">
-            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-              <div>
-                <p className="text-sm uppercase tracking-[0.35em] text-red-500">Contacto</p>
-                <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Hablemos de tu próxima moto</h2>
-                <p className="mt-4 text-slate-300">Completa el formulario y recibirás respuesta de nuestro equipo en pocos minutos.</p>
-                <div className="mt-6 space-y-3 text-sm text-slate-300">
-                  <div className="flex items-center gap-2"><Phone size={16} className="text-red-500" /> +52 555 123 4567</div>
-                  <div className="flex items-center gap-2"><Mail size={16} className="text-red-500" /> info@motoxtreme.com</div>
-                  <div className="flex items-center gap-2"><MapPin size={16} className="text-red-500" /> Guadalajara, Jalisco</div>
-                </div>
-                <div className="mt-6 flex gap-3">
-                  <a href="https://facebook.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/10 p-3 hover:border-red-500"><Facebook size={18} /></a>
-                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/10 p-3 hover:border-red-500"><Instagram size={18} /></a>
-                  <a href="https://wa.me/525551234567" target="_blank" rel="noreferrer" className="rounded-full border border-white/10 p-3 hover:border-red-500"><MessageCircle size={18} /></a>
-                </div>
+            <article className="card">
+              <img src="https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=900&q=80" alt="Kawasaki Ninja ZX-6R" />
+              <div className="card__body">
+                <h3>Kawasaki ZX-6R</h3>
+                <p className="card__tag">Supersport 636</p>
+                <p>Equilibrio entre potencia, estabilidad y una ergonomia muy equilibrada.</p>
+                <a href="https://www.kawasaki.com/" target="_blank" rel="noopener noreferrer">Ver marca</a>
               </div>
+            </article>
 
-              <form onSubmit={handleSubmit} className="grid gap-4 rounded-3xl border border-white/10 bg-slate-800/70 p-6">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <label className="grid gap-2 text-sm">Nombre<input name="name" value={formData.name} onChange={handleChange} required className="rounded-xl border border-white/10 bg-slate-900/80 p-3" placeholder="Tu nombre" /></label>
-                  <label className="grid gap-2 text-sm">Correo<input type="email" name="email" value={formData.email} onChange={handleChange} required className="rounded-xl border border-white/10 bg-slate-900/80 p-3" placeholder="tu@correo.com" /></label>
-                </div>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <label className="grid gap-2 text-sm">Teléfono<input name="phone" value={formData.phone} onChange={handleChange} className="rounded-xl border border-white/10 bg-slate-900/80 p-3" placeholder="Tu teléfono" /></label>
-                  <label className="grid gap-2 text-sm">Asunto<input name="subject" value={formData.subject} onChange={handleChange} className="rounded-xl border border-white/10 bg-slate-900/80 p-3" placeholder="¿Qué necesitas?" /></label>
-                </div>
-                <label className="grid gap-2 text-sm">Mensaje<textarea name="message" rows="5" value={formData.message} onChange={handleChange} required className="rounded-xl border border-white/10 bg-slate-900/80 p-3" placeholder="Cuéntanos qué estás buscando" /></label>
-                {status.message ? <p className={`text-sm ${status.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>{status.message}</p> : null}
-                <button type="submit" disabled={isSubmitting} className="w-fit rounded-full bg-red-600 px-5 py-3 font-semibold transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-70">{isSubmitting ? 'Enviando...' : 'Enviar mensaje'}</button>
-              </form>
+            <article className="card">
+              <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80" alt="Ducati Panigale V2" />
+              <div className="card__body">
+                <h3>Ducati Panigale V2</h3>
+                <p className="card__tag">Superbike italiana</p>
+                <p>Una opcion premium con un caracter muy exclusivo y una gran presencia.</p>
+                <a href="https://www.ducati.com/" target="_blank" rel="noopener noreferrer">Ver marca</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className="section section--light" id="comparativa">
+          <div className="section-head">
+            <span className="rpm">03</span>
+            <h2>Comparativa rapida</h2>
+            <div className="redline" aria-hidden="true"></div>
+          </div>
+
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Modelo</th>
+                  <th>Motor</th>
+                  <th>Potencia</th>
+                  <th>Enfoque</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Yamaha R6</td>
+                  <td>599 cc</td>
+                  <td>~118 CV</td>
+                  <td>Circuito</td>
+                </tr>
+                <tr>
+                  <td>Kawasaki ZX-6R</td>
+                  <td>636 cc</td>
+                  <td>~127 CV</td>
+                  <td>Versatilidad</td>
+                </tr>
+                <tr>
+                  <td>Ducati Panigale V2</td>
+                  <td>955 cc</td>
+                  <td>~155 CV</td>
+                  <td>Alta gama</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="section" id="galeria">
+          <div className="section-head">
+            <span className="rpm">04</span>
+            <h2>Galeria visual</h2>
+            <div className="redline" aria-hidden="true"></div>
+          </div>
+
+          <div className="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=900&q=80" alt="Detalle de una moto deportiva" />
+            <img src="https://images.unsplash.com/photo-1558980664-2506fca6bfc2?auto=format&fit=crop&w=900&q=80" alt="Moto deportiva de perfil" />
+            <img src="https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=900&q=80" alt="Moto deportiva en curva" />
+          </div>
+        </section>
+
+        <section className="section section--light" id="videos">
+          <div className="section-head">
+            <span className="rpm">05</span>
+            <h2>Video y mapa</h2>
+            <div className="redline" aria-hidden="true"></div>
+          </div>
+
+          <div className="media-grid">
+            <div className="iframe-card">
+              <h3>Video de referencia</h3>
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/mvn_3LRVr8c?rel=0&modestbranding=1&playsinline=1"
+                title="Video de motos deportivas"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
             </div>
+            <div className="iframe-card">
+              <h3>Mapa interactivo</h3>
+              <iframe
+                src="https://www.google.com/maps?q=Jerez%20de%20la%20Frontera%20Circuito&output=embed"
+                title="Mapa interactivo de un circuito de motos"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="contacto">
+          <div className="section-head">
+            <span className="rpm">06</span>
+            <h2>Formulario de contacto</h2>
+            <div className="redline" aria-hidden="true"></div>
+          </div>
+
+          <div className="contact-wrap">
+            <p>Quieres recibir mas informacion sobre modelos, rutas o mantenimiento? Completa el formulario y te responderemos.</p>
+            <form className="contact__form" id="contact-form" onSubmit={handleSubmit}>
+              <div className="form-row">
+                <label htmlFor="nombre">Nombre</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  placeholder="Tu nombre"
+                  required
+                  value={formData.nombre}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-row">
+                <label htmlFor="email">Correo</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="tuemail@ejemplo.com"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-row">
+                <label htmlFor="modelo">Modelo de interes</label>
+                <select id="modelo" name="modelo" value={formData.modelo} onChange={handleChange}>
+                  <option>Yamaha R6</option>
+                  <option>Kawasaki ZX-6R</option>
+                  <option>Ducati Panigale V2</option>
+                </select>
+              </div>
+              <div className="form-row">
+                <label htmlFor="mensaje">Mensaje</label>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  rows="5"
+                  placeholder="Escribe tu consulta..."
+                  value={formData.mensaje}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+              <div className="form-row form-row--inline">
+                <input
+                  type="checkbox"
+                  id="acepto"
+                  name="acepto"
+                  required
+                  checked={formData.acepto}
+                  onChange={handleChange}
+                />
+                <label htmlFor="acepto">Acepto recibir informacion relacionada con motocicletas.</label>
+              </div>
+              {status.message ? (
+                <p className={`form-status form-status--${status.type}`}>{status.message}</p>
+              ) : (
+                <p className="form-status" role="status" aria-live="polite"></p>
+              )}
+              <button type="submit" className="btn btn--primary" disabled={isSubmitting}>
+                {isSubmitting ? 'Enviando...' : 'Enviar'}
+              </button>
+            </form>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 bg-slate-950 px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
-          <div>
-            <h3 className="text-xl font-semibold">MotoXtreme</h3>
-            <p className="mt-3 text-sm text-slate-400">Tu agencia premium para descubrir motos deportivas, touring y urbanas con asesoría personalizada.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold">Enlaces</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-400">
-              <li><a href="#catalogo" className="hover:text-red-500">Catálogo</a></li>
-              <li><a href="#promociones" className="hover:text-red-500">Promociones</a></li>
-              <li><a href="#horarios" className="hover:text-red-500">Horarios</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold">Horario</h3>
-            <p className="mt-3 text-sm text-slate-400">Lunes a viernes: 9:00 - 19:00</p>
-            <p className="text-sm text-slate-400">Sábados: 9:00 - 17:00</p>
-          </div>
-        </div>
+      <footer className="footer">
+        <div className="start-stripe start-stripe--thin" aria-hidden="true"></div>
+        <p>Sportbikes - informacion, imagenes y contenidos para apasionados del motor.</p>
       </footer>
-    </div>
+    </>
   )
 }
 
