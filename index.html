@@ -191,7 +191,7 @@
 
       <div class="contact-wrap">
         <p>¿Quieres recibir más información sobre modelos, rutas o mantenimiento? Completa el formulario y te responderemos.</p>
-        <form class="contact__form" action="mailto:tu-correo@ejemplo.com" method="post" enctype="text/plain">
+        <form class="contact__form" id="contact-form">
           <div class="form-row">
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
@@ -216,9 +216,54 @@
             <input type="checkbox" id="acepto" name="acepto" required>
             <label for="acepto">Acepto recibir información relacionada con motocicletas.</label>
           </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
           <button type="submit" class="btn btn--primary">Enviar</button>
         </form>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('contact-form')
+          const status = form?.querySelector('.form-status')
+
+          if (!form || !status) return
+
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault()
+            status.textContent = 'Enviando...'
+            status.style.color = '#fbbf24'
+
+            const formData = new FormData(form)
+            const payload = {
+              name: formData.get('nombre') || '',
+              email: formData.get('email') || '',
+              phone: '',
+              subject: formData.get('modelo') || '',
+              message: formData.get('mensaje') || ''
+            }
+
+            try {
+              const response = await fetch('/.netlify/functions/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              })
+
+              const data = await response.json()
+              if (!response.ok || !data.ok) {
+                throw new Error(data.message || 'No se pudo enviar el mensaje')
+              }
+
+              status.textContent = data.message || 'Mensaje enviado correctamente.'
+              status.style.color = '#34d399'
+              form.reset()
+            } catch (error) {
+              status.textContent = error.message || 'No se pudo enviar el mensaje.'
+              status.style.color = '#f87171'
+            }
+          })
+        })
+      </script>
     </section>
   </main>
 
