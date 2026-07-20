@@ -1,5 +1,14 @@
 const nodemailer = require('nodemailer')
 
+const cleanEnv = (value) => {
+  if (!value) return ''
+  const trimmed = String(value).trim()
+  if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+    return trimmed.slice(1, -1).trim()
+  }
+  return trimmed
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -12,10 +21,10 @@ exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body || '{}')
     const { name, email, phone, subject, message } = data
-    const smtpUser = process.env.SMTP_USER || process.env.USER
-    const smtpPass = process.env.SMTP_PASS || process.env.PASS
-    const contactTo = process.env.CONTACT_TO || process.env.SMTP_TO
-    const smtpFrom = process.env.SMTP_FROM || smtpUser
+    const smtpUser = cleanEnv(process.env.SMTP_USER || process.env.USER)
+    const smtpPass = cleanEnv(process.env.SMTP_PASS || process.env.PASS)
+    const contactTo = cleanEnv(process.env.CONTACT_TO || process.env.SMTP_TO)
+    const smtpFrom = cleanEnv(process.env.SMTP_FROM || smtpUser)
 
     if (!name || !email || !message) {
       return {
