@@ -12,6 +12,10 @@ exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body || '{}')
     const { name, email, phone, subject, message } = data
+    const smtpUser = process.env.SMTP_USER || process.env.USER
+    const smtpPass = process.env.SMTP_PASS || process.env.PASS
+    const contactTo = process.env.CONTACT_TO || process.env.SMTP_TO
+    const smtpFrom = process.env.SMTP_FROM || smtpUser
 
     if (!name || !email || !message) {
       return {
@@ -21,11 +25,14 @@ exports.handler = async (event) => {
       }
     }
 
-    if (!process.env.USER || !process.env.PASS || !process.env.CONTACT_TO) {
+    if (!smtpUser || !smtpPass || !contactTo) {
       return {
         statusCode: 500,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ok: false, message: 'Faltan USER, PASS o CONTACT_TO.' })
+        body: JSON.stringify({
+          ok: false,
+          message: 'Faltan variables SMTP. Configura SMTP_USER, SMTP_PASS y CONTACT_TO en Netlify.'
+        })
       }
     }
 
@@ -34,14 +41,16 @@ exports.handler = async (event) => {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.USER,
-        pass: process.env.PASS
+        user: smtpUser,
+        pass: smtpPass
       }
     })
 
+    await transporter.verify()
+
     await transporter.sendMail({
-      from: `MotoXtreme <${process.env.USER}>`,
-      to: process.env.CONTACT_TO,
+      from: `MotoXtreme <${smtpFrom}>`,
+      to: contactTo,
       replyTo: email,
       subject: subject ? `Nuevo mensaje: ${subject}` : 'Nuevo mensaje desde la web',
       html: `
@@ -56,7 +65,7 @@ exports.handler = async (event) => {
     })
 
     await transporter.sendMail({
-      from: `MotoXtreme <${process.env.USER}>`,
+      from: `MotoXtreme <${smtpFrom}>`,
       to: email,
       subject: 'Hemos recibido tu mensaje - MotoXtreme',
       html: `
@@ -76,10 +85,16 @@ exports.handler = async (event) => {
     }
   } catch (error) {
     console.error('Contact form error:', error)
+    let message = 'No se pudo enviar el mensaje. Revisa la configuracion SMTP.'
+
+    if (error && (error.code === 'EAUTH' || error.responseCode === 535)) {
+      message = 'Error de autenticacion SMTP. Verifica usuario, contrasena y App Password de Gmail.'
+    }
+
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: false, message: 'No se pudo enviar el mensaje. Revisa las variables y la configuración SMTP.' })
+      body: JSON.stringify({ ok: false, message })
     }
   }
 }
