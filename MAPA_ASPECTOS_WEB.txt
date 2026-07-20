@@ -1,0 +1,102 @@
+MAPA DE ASPECTOS - PROYECTO MOTOS
+
+Elementos tecnicos
+
+1) Titulos
+- client/src/App.jsx:90 -> <h1>
+- client/src/App.jsx:101,131,171,212,226,254 -> <h2>
+- client/src/App.jsx:107,117,139,149,159,232,241 -> <h3>
+
+2) Listas ordenadas y desordenadas
+- client/src/App.jsx:109 -> <ol>
+- client/src/App.jsx:118 -> <ul>
+
+3) Secciones
+- client/src/App.jsx:81,98,128,168,209,223,251 -> <section>
+
+4) Imagenes
+- client/src/App.jsx:82,137,147,157,217,218,219 -> <img>
+
+5) Iframes
+- client/src/App.jsx:233,242 -> <iframe>
+
+6) Hipervinculos
+- client/src/App.jsx:71-76 -> enlaces de navegacion
+- client/src/App.jsx:94 -> ancla interna a #modelos
+- client/src/App.jsx:142,152,162 -> enlaces externos (marcas)
+
+7) Anclas
+- client/src/App.jsx:71-76 -> href a #inicio, #conceptos, #modelos, #comparativa, #videos, #contacto
+- client/src/App.jsx:81 -> id="inicio"
+- client/src/App.jsx:251 -> id="contacto"
+
+8) Tablas
+- client/src/App.jsx:176 -> <table>
+
+9) Formularios
+- client/src/App.jsx:260 -> <form>
+- client/src/App.jsx:20-56 -> logica handleSubmit para envio
+- client/src/App.jsx:22 -> envio a /.netlify/functions/contact
+
+10) Elementos multimedia (videos y mapas interactivos)
+- client/src/App.jsx:223 -> seccion "Video y mapa"
+- client/src/App.jsx:233 -> iframe de YouTube
+- client/src/App.jsx:242 -> iframe de Google Maps
+
+11) Frontend desarrollado con React + Vite
+- client/package.json:16-18 -> dependencias de React
+- client/package.json:7-10,26 -> scripts y dependencia de Vite
+- client/src/App.jsx -> componente principal React
+
+12) Uso de Bootstrap o Tailwind CSS
+- NO IMPLEMENTADO ACTUALMENTE
+- El proyecto usa CSS personalizado en client/src/App.css
+
+13) Pruebas de funcionamiento
+- Verificacion de build de produccion ejecutada con "npm run build" en client
+- Configuracion de formulario y funcion revisada en:
+  - client/src/App.jsx
+  - client/netlify/functions/contact.js
+
+14) Publicacion en produccion (Netlify, Render y/o Railway)
+- Netlify configurado en netlify.toml (base=client, publish=dist, command de build)
+- netlify.toml:2-4
+- No hay configuracion visible para Render o Railway en este repositorio
+
+Apartados de la pagina web
+
+1) Inicio
+- IMPLEMENTADO
+- client/src/App.jsx:81 (id="inicio")
+
+2) Sobre nosotros
+- NO IMPLEMENTADO
+
+3) Mision y vision
+- NO IMPLEMENTADO
+
+4) Servicios / Productos
+- IMPLEMENTADO (Modelos destacados como productos)
+- client/src/App.jsx:128
+
+5) Clientes / Aliados estrategicos
+- NO IMPLEMENTADO
+
+6) Galeria / Portafolio
+- IMPLEMENTADO
+- client/src/App.jsx:209
+
+7) Testimonios / Casos de exito
+- NO IMPLEMENTADO
+
+8) Formulario de contacto
+- IMPLEMENTADO
+- client/src/App.jsx:251 y 260
+
+9) Redes sociales / Enlaces externos
+- PARCIALMENTE IMPLEMENTADO
+- Enlaces externos de marcas en client/src/App.jsx:142,152,162
+- No hay enlaces a redes sociales actualmente
+
+10) Aviso de privacidad / Terminos legales
+- NO IMPLEMENTADO

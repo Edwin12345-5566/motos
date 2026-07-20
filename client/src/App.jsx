@@ -327,12 +327,6 @@ function App() {
 
       <footer className="footer">
         <div className="start-stripe start-stripe--thin" aria-hidden="true"></div>
-        <div className="footer__links" aria-label="Enlaces de contacto">
-          <a href="https://wa.me/5215512345678" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
-          <a href="https://www.yamaha-motor.eu/" target="_blank" rel="noopener noreferrer">Sitio web</a>
-        </div>
         <p>Sportbikes - informacion, imagenes y contenidos para apasionados del motor.</p>
       </footer>
     </>
