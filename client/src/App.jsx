@@ -327,6 +327,12 @@ function App() {
 
       <footer className="footer">
         <div className="start-stripe start-stripe--thin" aria-hidden="true"></div>
+        <div className="footer__social" aria-label="Redes sociales">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://wa.me/525551234567" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
         <p>Sportbikes - informacion, imagenes y contenidos para apasionados del motor.</p>
       </footer>
     </>

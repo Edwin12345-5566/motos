@@ -125,6 +125,9 @@ tr:nth-child(even){ background:#f7f3ea; }
 .form-status--error{ color:#f87171; }
 
 .footer{ padding-top:30px; background:var(--bg); border-top:1px solid rgba(255,255,255,.08); }
+.footer__social{ padding:20px 6vw 6px; display:flex; flex-wrap:wrap; gap:10px; }
+.footer__social a{ font-family:var(--mono); font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-dim); border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:8px 14px; }
+.footer__social a:hover{ color:#fff; border-color:var(--red); transform:translateY(-1px); }
 .footer p{ padding:24px 6vw 40px; font-family:var(--mono); font-size:12px; color:var(--text-dim); }
 
 @media (max-width:760px){
