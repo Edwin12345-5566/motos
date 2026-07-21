@@ -16,13 +16,19 @@
       <span class="topbar__mark">R</span>
       <span class="topbar__name">SPORTBIKES</span>
     </div>
-    <nav class="topbar__nav" aria-label="Navegación principal">
+    <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="topbar__nav" id="main-nav" aria-label="Navegación principal">
       <a href="#inicio">Inicio</a>
-      <a href="#conceptos">Conceptos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#mision">Misión</a>
+      <a href="#servicios">Servicios</a>
       <a href="#modelos">Modelos</a>
-      <a href="#comparativa">Comparativa</a>
+      <a href="#testimonios">Testimonios</a>
       <a href="#videos">Videos</a>
       <a href="#contacto">Contacto</a>
+      <a href="#terminos">Términos</a>
     </nav>
   </header>
 
@@ -38,9 +44,57 @@
       </div>
     </section>
 
-    <section class="section section--light" id="conceptos">
+    <section class="section" id="nosotros">
       <div class="section-head">
         <span class="rpm">01</span>
+        <h2>Sobre Nosotros</h2>
+        <div class="redline" aria-hidden="true"></div>
+      </div>
+      <div class="nosotros-grid">
+        <div class="nosotros-text">
+          <p>En <strong>Sportbikes</strong> somos apasionados del motociclismo deportivo. Nacimos con la misión de acercar la cultura de las motos de alto rendimiento a todos los entusiastas, desde quienes dan sus primeros pasos hasta los pilotos más experimentados.</p>
+          <p>Nuestro equipo está formado por ingenieros, pilotos y aficionados que comparten un mismo amor por las dos ruedas. Más que un portal de información, somos una comunidad activa en constante crecimiento.</p>
+          <ul class="nosotros-list">
+            <li>+10 años de experiencia en el sector</li>
+            <li>Equipo multidisciplinar apasionado</li>
+            <li>Información verificada y actualizada</li>
+            <li>Comunidad activa de motociclistas</li>
+          </ul>
+        </div>
+        <div class="nosotros-img-wrap">
+          <img src="https://images.unsplash.com/photo-1558981852-426c349351a8?auto=format&fit=crop&w=900&q=80" alt="Equipo Sportbikes">
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" id="mision">
+      <div class="section-head">
+        <span class="rpm">02</span>
+        <h2>Misión y Visión</h2>
+        <div class="redline" aria-hidden="true"></div>
+      </div>
+      <div class="mision-grid">
+        <div class="mision-card">
+          <div class="mision-icon">🎯</div>
+          <h3>Nuestra Misión</h3>
+          <p>Proporcionar información precisa, apasionada y accesible sobre el mundo de las motocicletas deportivas, fomentando una cultura de conducción responsable y segura, y conectando a la comunidad motociclista global.</p>
+        </div>
+        <div class="mision-card">
+          <div class="mision-icon">🔭</div>
+          <h3>Nuestra Visión</h3>
+          <p>Ser la referencia principal en español para todo lo relacionado con las sportbikes: desde guías técnicas y comparativas hasta rutas épicas y noticias del mundo del motor, liderando la comunidad hispana del motoculismo.</p>
+        </div>
+        <div class="mision-card">
+          <div class="mision-icon">⚡</div>
+          <h3>Nuestros Valores</h3>
+          <p>Pasión por la velocidad, compromiso con la seguridad, respeto por la comunidad y honestidad en cada contenido que publicamos. La adrenalina con responsabilidad es nuestra filosofía de vida.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" id="conceptos">
+      <div class="section-head">
+        <span class="rpm">03</span>
         <h2>Conceptos clave</h2>
         <div class="redline" aria-hidden="true"></div>
       </div>
@@ -70,7 +124,7 @@
 
     <section class="section" id="modelos">
       <div class="section-head">
-        <span class="rpm">02</span>
+        <span class="rpm">04</span>
         <h2>Modelos destacados</h2>
         <div class="redline" aria-hidden="true"></div>
       </div>
@@ -108,9 +162,55 @@
       </div>
     </section>
 
+    <section class="section" id="servicios">
+      <div class="section-head">
+        <span class="rpm">05</span>
+        <h2>Servicios y Productos</h2>
+        <div class="redline" aria-hidden="true"></div>
+      </div>
+      <div class="servicios-grid">
+        <div class="servicio-card">
+          <div class="servicio-icon">🏍️</div>
+          <h3>Asesoría de Compra</h3>
+          <p>Te ayudamos a encontrar la moto ideal según tu experiencia, presupuesto y estilo de conducción. Consultas personalizadas con expertos.</p>
+          <span class="servicio-tag">Servicio</span>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">🔧</div>
+          <h3>Mantenimiento Técnico</h3>
+          <p>Guías detalladas de mantenimiento preventivo y correctivo. Desde el cambio de aceite hasta la revisión completa del sistema de frenos.</p>
+          <span class="servicio-tag">Servicio</span>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">🛡️</div>
+          <h3>Equipamiento Homologado</h3>
+          <p>Catálogo de cascos, trajes, guantes y protecciones con certificación CE. Seguridad sin comprometer el estilo en cada rodada.</p>
+          <span class="servicio-tag">Producto</span>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">📚</div>
+          <h3>Cursos y Formación</h3>
+          <p>Programas de formación para nuevos pilotos y talleres avanzados de técnica de conducción en circuito con instructores certificados.</p>
+          <span class="servicio-tag">Servicio</span>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">🏁</div>
+          <h3>Rutas y Eventos</h3>
+          <p>Organización de salidas grupales, rutas de montaña y participación en eventos motociclistas nacionales e internacionales.</p>
+          <span class="servicio-tag">Servicio</span>
+        </div>
+        <div class="servicio-card">
+          <div class="servicio-icon">📦</div>
+          <h3>Accesorios y Repuestos</h3>
+          <p>Tienda en línea con accesorios originales y aftermarket para las principales marcas. Envío a toda España y Latinoamérica.</p>
+          <span class="servicio-tag">Producto</span>
+        </div>
+      </div>
+    </section>
+
     <section class="section section--light" id="comparativa">
       <div class="section-head">
-        <span class="rpm">03</span>
+        <span class="rpm">06</span>
         <h2>Comparativa rápida</h2>
         <div class="redline" aria-hidden="true"></div>
       </div>
@@ -151,7 +251,7 @@
 
     <section class="section" id="galeria">
       <div class="section-head">
-        <span class="rpm">04</span>
+        <span class="rpm">07</span>
         <h2>Galería visual</h2>
         <div class="redline" aria-hidden="true"></div>
       </div>
@@ -163,9 +263,63 @@
       </div>
     </section>
 
+    <section class="section section--light" id="testimonios">
+      <div class="section-head">
+        <span class="rpm">08</span>
+        <h2>Testimonios</h2>
+        <div class="redline" aria-hidden="true"></div>
+      </div>
+      <div class="testimonios-grid">
+        <div class="testimonio-card">
+          <div class="stars" aria-label="4 de 5 estrellas">★★★★☆</div>
+          <p class="testimonio-texto">"Encontré toda la información que necesitaba para elegir mi primera sportbike. La comparativa de modelos fue clave en mi decisión. ¡Compré la Kawasaki ZX-6R y no me arrepiento para nada!"</p>
+          <div class="testimonio-autor">
+            <div class="autor-avatar">MR</div>
+            <div>
+              <strong>Miguel Rodríguez</strong>
+              <span>Piloto amateur · Madrid</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonio-card">
+          <div class="stars" aria-label="4 de 5 estrellas">★★★★☆</div>
+          <p class="testimonio-texto">"El servicio de asesoría de compra me ahorró mucho tiempo y dinero. Los expertos conocen perfectamente cada modelo y sus pros y contras. Muy recomendable para cualquier principiante."</p>
+          <div class="testimonio-autor">
+            <div class="autor-avatar">SL</div>
+            <div>
+              <strong>Sara López</strong>
+              <span>Entusiasta del motor · Barcelona</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonio-card">
+          <div class="stars" aria-label="4 de 5 estrellas">★★★★☆</div>
+          <p class="testimonio-texto">"Participé en uno de sus cursos de circuito y fue una experiencia increíble. Instructores profesionales y ambiente muy motivador. Mejoré notablemente mi técnica de frenada en curva."</p>
+          <div class="testimonio-autor">
+            <div class="autor-avatar">JC</div>
+            <div>
+              <strong>Javier Castro</strong>
+              <span>Piloto aficionado · Valencia</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonio-card">
+          <div class="stars" aria-label="4 de 5 estrellas">★★★★☆</div>
+          <p class="testimonio-texto">"El contenido sobre mantenimiento es excelente. Seguí sus guías para revisar mi Ducati y todo salió perfecto. Una web de referencia para cualquier motero que se tome en serio su moto."</p>
+          <div class="testimonio-autor">
+            <div class="autor-avatar">AP</div>
+            <div>
+              <strong>Ana Pérez</strong>
+              <span>Motociclista · Sevilla</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section--light" id="videos">
       <div class="section-head">
-        <span class="rpm">05</span>
+        <span class="rpm">09</span>
         <h2>Video y mapa</h2>
         <div class="redline" aria-hidden="true"></div>
       </div>
@@ -184,7 +338,7 @@
 
     <section class="section" id="contacto">
       <div class="section-head">
-        <span class="rpm">06</span>
+        <span class="rpm">10</span>
         <h2>Formulario de contacto</h2>
         <div class="redline" aria-hidden="true"></div>
       </div>
@@ -265,11 +419,71 @@
         })
       </script>
     </section>
+    <section class="section" id="terminos">
+      <div class="section-head">
+        <span class="rpm">11</span>
+        <h2>Términos Legales</h2>
+        <div class="redline" aria-hidden="true"></div>
+      </div>
+      <div class="terminos-wrap">
+        <div class="terminos-grid">
+          <div class="termino-bloque">
+            <h3>Aviso Legal</h3>
+            <p>Sportbikes es un portal informativo sobre motocicletas deportivas. Los contenidos son de carácter informativo y no constituyen asesoramiento profesional. El acceso a este sitio implica la aceptación plena de los presentes términos y condiciones.</p>
+          </div>
+          <div class="termino-bloque">
+            <h3>Política de Privacidad</h3>
+            <p>Los datos personales recopilados a través del formulario de contacto serán tratados conforme al RGPD. Los datos no serán cedidos a terceros sin consentimiento expreso. El usuario puede ejercer sus derechos de acceso, rectificación y cancelación en cualquier momento.</p>
+          </div>
+          <div class="termino-bloque">
+            <h3>Propiedad Intelectual</h3>
+            <p>Todos los contenidos de este sitio web, incluyendo textos, imágenes y elementos gráficos, están protegidos por derechos de propiedad intelectual. Queda prohibida su reproducción total o parcial sin autorización expresa del titular.</p>
+          </div>
+          <div class="termino-bloque">
+            <h3>Uso de Cookies</h3>
+            <p>Este sitio utiliza cookies técnicas y analíticas para mejorar la experiencia de navegación. Al continuar navegando, aceptas su uso conforme a nuestra política. Puedes desactivarlas desde la configuración de tu navegador en cualquier momento.</p>
+          </div>
+          <div class="termino-bloque">
+            <h3>Limitación de Responsabilidad</h3>
+            <p>Sportbikes no se responsabiliza de los daños derivados del uso de la información contenida en este portal. La conducción de motocicletas implica riesgos inherentes que son responsabilidad exclusiva del usuario. Utiliza siempre equipamiento de protección homologado.</p>
+          </div>
+          <div class="termino-bloque">
+            <h3>Legislación Aplicable</h3>
+            <p>Los presentes términos se rigen por la legislación española vigente. Para cualquier controversia, las partes se someten a los juzgados y tribunales competentes, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.</p>
+          </div>
+        </div>
+        <p class="terminos-update">Última actualización: julio de 2026</p>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
     <div class="start-stripe start-stripe--thin" aria-hidden="true"></div>
     <p>Sportbikes — información, imágenes y contenidos para apasionados del motor.</p>
   </footer>
+
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-btn')
+    const mainNav = document.getElementById('main-nav')
+    hamburgerBtn?.addEventListener('click', () => {
+      const isOpen = hamburgerBtn.classList.toggle('open')
+      mainNav.classList.toggle('open', isOpen)
+      hamburgerBtn.setAttribute('aria-expanded', isOpen)
+    })
+    mainNav?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('open')
+        mainNav.classList.remove('open')
+        hamburgerBtn.setAttribute('aria-expanded', 'false')
+      })
+    })
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.topbar')) {
+        hamburgerBtn?.classList.remove('open')
+        mainNav?.classList.remove('open')
+        hamburgerBtn?.setAttribute('aria-expanded', 'false')
+      }
+    })
+  </script>
 </body>
 </html>

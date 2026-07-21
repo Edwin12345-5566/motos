@@ -120,9 +120,77 @@ tr:nth-child(even){ background:#f7f3ea; }
 .footer{ padding-top:30px; background:var(--bg); border-top:1px solid rgba(255,255,255,.08); }
 .footer p{ padding:24px 6vw 40px; font-family:var(--mono); font-size:12px; color:var(--text-dim); }
 
+/* ── Hamburger ─────────────────────────────────────── */
+.hamburger{ display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:8px; z-index:101; }
+.hamburger span{ display:block; width:26px; height:2px; background:var(--text); border-radius:2px; transition:all .3s ease; }
+.hamburger.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2){ opacity:0; transform:translateX(8px); }
+.hamburger.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
+
+/* ── Sobre Nosotros ─────────────────────────────────── */
+.nosotros-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; padding:0 6vw; align-items:center; }
+.nosotros-text p{ color:var(--text-dim); margin-bottom:16px; line-height:1.7; }
+.nosotros-text strong{ color:var(--text); }
+.nosotros-list{ list-style:none; padding:0; margin-top:20px; display:grid; gap:10px; }
+.nosotros-list li{ display:flex; align-items:center; gap:12px; font-family:var(--mono); font-size:13px; color:var(--text-dim); }
+.nosotros-list li::before{ content:''; display:block; width:8px; height:8px; background:var(--red); border-radius:50%; flex-shrink:0; }
+.nosotros-img-wrap img{ width:100%; height:420px; object-fit:cover; border-radius:18px; border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); }
+
+/* ── Misión y Visión ────────────────────────────────── */
+.mision-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding:0 6vw; }
+.mision-card{ background:#fff; border-radius:16px; padding:32px 28px; box-shadow:var(--shadow); text-align:center; border-top:4px solid var(--red-dark); }
+.mision-icon{ font-size:40px; margin-bottom:16px; }
+.mision-card h3{ font-size:24px; color:var(--bg); margin-bottom:12px; }
+.mision-card p{ font-size:14px; color:#555; line-height:1.7; }
+
+/* ── Servicios y Productos ──────────────────────────── */
+.servicios-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding:0 6vw; }
+.servicio-card{ background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:28px; box-shadow:var(--shadow); transition:transform .25s ease, border-color .25s ease; display:grid; gap:12px; }
+.servicio-card:hover{ transform:translateY(-4px); border-color:rgba(226,0,26,.4); }
+.servicio-icon{ font-size:36px; }
+.servicio-card h3{ font-size:22px; }
+.servicio-card p{ font-size:14px; color:var(--text-dim); line-height:1.6; }
+.servicio-tag{ display:inline-block; padding:3px 12px; border-radius:999px; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; background:rgba(226,0,26,.15); color:var(--red); border:1px solid rgba(226,0,26,.3); align-self:start; }
+
+/* ── Testimonios ────────────────────────────────────── */
+.testimonios-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; padding:0 6vw; }
+.testimonio-card{ background:#fff; border-radius:16px; padding:28px; box-shadow:var(--shadow); display:grid; gap:16px; border-left:4px solid var(--red-dark); }
+.stars{ color:var(--yellow); font-size:22px; letter-spacing:2px; }
+.testimonio-texto{ font-size:15px; color:#444; line-height:1.7; font-style:italic; }
+.testimonio-autor{ display:flex; align-items:center; gap:14px; }
+.autor-avatar{ width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--red),#ff4c4c); color:#fff; display:grid; place-items:center; font-family:var(--mono); font-size:13px; font-weight:700; flex-shrink:0; }
+.testimonio-autor strong{ display:block; font-family:var(--display); font-size:18px; color:var(--bg); }
+.testimonio-autor span{ font-size:12px; color:#888; font-family:var(--mono); }
+
+/* ── Términos Legales ───────────────────────────────── */
+.terminos-wrap{ padding:0 6vw; }
+.terminos-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:28px; }
+.termino-bloque{ background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:24px; }
+.termino-bloque h3{ font-size:20px; margin-bottom:12px; color:var(--yellow); }
+.termino-bloque p{ font-size:13px; color:var(--text-dim); line-height:1.7; }
+.terminos-update{ font-family:var(--mono); font-size:11px; color:var(--text-dim); opacity:0.6; text-align:right; }
+
 @media (max-width:760px){
-  .topbar{ flex-direction:column; align-items:flex-start; gap:12px; }
-  .content-grid, .media-grid, .gallery-grid{ grid-template-columns:1fr; }
+  .hamburger{ display:flex; }
+  .topbar{ flex-direction:row; align-items:center; position:relative; }
+  .topbar__nav{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:rgba(6,7,10,.97);
+    flex-direction:column;
+    padding:16px 6vw;
+    gap:0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    box-shadow:0 12px 24px rgba(0,0,0,.3);
+    z-index:100;
+  }
+  .topbar__nav.open{ display:flex; }
+  .topbar__nav a{ padding:12px 0; border-bottom:1px solid rgba(255,255,255,.05); font-size:13px; width:100%; }
+  .content-grid, .media-grid, .gallery-grid, .nosotros-grid, .mision-grid, .servicios-grid, .testimonios-grid, .terminos-grid{ grid-template-columns:1fr; }
   .hero__content{ padding-bottom:44px; }
   .contact__form{ padding:18px; }
+  .nosotros-img-wrap img{ height:280px; }
 }
