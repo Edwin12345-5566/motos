@@ -2,51 +2,158 @@ MAPA DE ASPECTOS - PROYECTO MOTOS
 
 Elementos tecnicos
 
-1) Titulos
-- client/src/App.jsx:90 -> <h1>
-- client/src/App.jsx:101,131,171,212,226,254 -> <h2>
-- client/src/App.jsx:107,117,139,149,159,232,241 -> <h3>
+1) Títulos
+- index.html:23 -> <h1> Hero title "Potencia, precisión y estilo."
+- index.html:48,70,93,152,177,195,220,257 -> <h2> Títulos de secciones
+- index.html:51,55,75,78,96,99,155,158,161,182,185,189,200,203,206,263,266,269,272,275,278 -> <h3> Subtítulos de cards y bloques
 
 2) Listas ordenadas y desordenadas
-- client/src/App.jsx:109 -> <ol>
-- client/src/App.jsx:118 -> <ul>
+- index.html:54-58 -> <ol> Lista ordenada "Conceptos clave"
+- index.html:61-64 -> <ul> Lista desordenada "Listas útiles"
+- index.html:111-114 -> <ul> Lista desordenada "Sobre nosotros"
 
 3) Secciones
-- client/src/App.jsx:81,98,128,168,209,223,251 -> <section>
+- index.html:35 -> <section id="inicio"> Hero
+- index.html:45 -> <section id="nosotros"> Sobre Nosotros
+- index.html:68 -> <section id="mision"> Misión y Visión
+- index.html:95 -> <section id="conceptos"> Conceptos clave
+- index.html:138 -> <section id="modelos"> Modelos destacados
+- index.html:166 -> <section id="servicios"> Servicios y Productos
+- index.html:208 -> <section id="comparativa"> Comparativa rápida
+- index.html:230 -> <section id="galeria"> Galería visual
+- index.html:247 -> <section id="testimonios"> Testimonios
+- index.html:291 -> <section id="videos"> Video y mapa
+- index.html:310 -> <section id="contacto"> Formulario de contacto
+- index.html:362 -> <section id="terminos"> Términos Legales
 
-4) Imagenes
-- client/src/App.jsx:82,137,147,157,217,218,219 -> <img>
+4) Imágenes
+- index.html:36 -> Hero image
+- index.html:62 -> Imagen Sobre Nosotros (moto deportiva)
+- index.html:140-158 -> Imágenes Modelos (Yamaha R6, Kawasaki, Ducati)
+- index.html:232-236 -> Imágenes Galería visual (3 motos)
 
 5) Iframes
-- client/src/App.jsx:233,242 -> <iframe>
+- index.html:294 -> <iframe> YouTube video
+- index.html:300 -> <iframe> Google Maps
 
 6) Hipervinculos
-- client/src/App.jsx:71-76 -> enlaces de navegacion
-- client/src/App.jsx:94 -> ancla interna a #modelos
-- client/src/App.jsx:142,152,162 -> enlaces externos (marcas)
+- index.html:26-34 -> Enlaces de navegación: #inicio, #nosotros, #mision, #servicios, #modelos, #testimonios, #videos, #contacto, #terminos
+- index.html:142,152,162 -> Enlaces externos a marcas (Yamaha, Kawasaki, Ducati)
 
 7) Anclas
-- client/src/App.jsx:71-76 -> href a #inicio, #conceptos, #modelos, #comparativa, #videos, #contacto
-- client/src/App.jsx:81 -> id="inicio"
-- client/src/App.jsx:251 -> id="contacto"
+- index.html:26-34 -> href a secciones internas: #inicio, #nosotros, #mision, #servicios, #modelos, #comparativa, #galeria, #testimonios, #videos, #contacto, #terminos
+- index.html:35,45,68,95,138,166,208,230,247,291,310,362 -> id= de cada sección
 
 8) Tablas
-- client/src/App.jsx:176 -> <table>
+- index.html:218-227 -> <table> Comparativa rápida de modelos
 
 9) Formularios
-- client/src/App.jsx:260 -> <form>
-- client/src/App.jsx:20-56 -> logica handleSubmit para envio
-- client/src/App.jsx:22 -> envio a /.netlify/functions/contact
+- index.html:327-361 -> <form id="contact-form"> Formulario de contacto
+- index.html:330-350 -> inputs para nombre, email, modelo, mensaje
+- index.html:351-353 -> checkbox de aceptación
+- index.html:328-361 -> script con handleSubmit (POST a /.netlify/functions/contact)
 
-10) Elementos multimedia (videos y mapas interactivos)
-- client/src/App.jsx:223 -> seccion "Video y mapa"
-- client/src/App.jsx:233 -> iframe de YouTube
-- client/src/App.jsx:242 -> iframe de Google Maps
+10) Elementos multimedia
+- index.html:293-299 -> Sección videos con YouTube e Google Maps
 
-11) Frontend desarrollado con React + Vite
-- client/package.json:16-18 -> dependencias de React
-- client/package.json:7-10,26 -> scripts y dependencia de Vite
-- client/src/App.jsx -> componente principal React
+11) Header con menú hamburguesa
+- index.html:14-34 -> <header> con logo y navegación
+- index.html:19-21 -> Botón hamburguesa responsive
+
+================================================================================
+
+ESTRUCTURA DE SECCIONES DE LA PÁGINA
+
+1) INICIO (#inicio)
+   - Hero con imagen de fondo
+   - Título: "Potencia, precisión y estilo."
+   - Descripción y botón "Ver modelos"
+
+2) SOBRE NOSOTROS (#nosotros)
+   - Descripción de la empresa
+   - Lista de logros (+10 años, equipo, información verificada, comunidad)
+   - Imagen de moto deportiva Ducati
+
+3) MISIÓN Y VISIÓN (#mision)
+   - 3 cards: Misión, Visión, Valores
+   - Íconos temáticos
+   - Fondo claro
+
+4) CONCEPTOS CLAVE (#conceptos)
+   - Panel 1: Títulos (motor de altas revoluciones, chasis rígido, frenada)
+   - Panel 2: Equipamiento necesario
+   - Fondo claro
+
+5) MODELOS DESTACADOS (#modelos)
+   - 3 cards de motos: Yamaha R6, Kawasaki ZX-6R, Ducati Panigale V2
+   - Imagen, descripción y enlace a marca
+   - Fondo oscuro
+
+6) SERVICIOS Y PRODUCTOS (#servicios)
+   - 6 cards: Asesoría, Mantenimiento, Equipamiento, Cursos, Rutas, Accesorios
+   - Tags de categoría (Servicio/Producto)
+   - Emojis temáticos
+   - Fondo claro
+
+7) COMPARATIVA RÁPIDA (#comparativa)
+   - Tabla con: Modelo, Motor, Potencia, Enfoque
+   - Datos de Yamaha R6, Kawasaki ZX-6R, Ducati Panigale V2
+   - Fondo claro
+
+8) GALERÍA VISUAL (#galeria)
+   - 3 imágenes de motos deportivas
+   - Grid responsive
+   - Fondo oscuro
+
+9) TESTIMONIOS (#testimonios)
+   - 4 tarjetas de clientes
+   - Rating ★★★★☆ (4 de 5 estrellas)
+   - Avatar con iniciales, nombre y ubicación
+   - Fondo claro
+
+10) VIDEO Y MAPA (#videos)
+    - YouTube video de referencia
+    - Google Maps integrado
+    - 2 iframes
+    - Fondo claro
+
+11) FORMULARIO DE CONTACTO (#contacto)
+    - Campos: Nombre, Email, Modelo de interés, Mensaje
+    - Checkbox de aceptación
+    - Envío a netlify functions
+    - Fondo oscuro
+
+12) TÉRMINOS LEGALES (#terminos)
+    - 6 bloques: Aviso Legal, Privacidad, Propiedad Intelectual, Cookies, Responsabilidad, Legislación
+    - Última actualización
+    - Fondo oscuro
+
+13) FOOTER
+    - Stripe decorativo
+    - Descripción de Sportbikes
+    - Créditos
+
+================================================================================
+
+ELEMENTOS DE NAVEGACIÓN Y ESTRUCTURA GENERAL
+
+- Menú Hamburguesa: Responsive en móvil (max-width: 760px)
+- Header Sticky: Position fixed con fondo blur
+- Logo: "R SPORTBIKES" con gradiente
+- Navegación: 9 links a secciones principales
+- Animaciones: Hover effects en botones, cards y enlaces
+- Colores: Tema rojo (#e2001a), amarillo (#f2c230), fondo oscuro (#06070a)
+
+REDES SOCIALES / ENLACES EXTERNOS:
+- enlaces a Yamaha (https://www.yamaha-motor.eu/)
+- enlaces a Kawasaki (https://www.kawasaki.com/)
+- enlaces a Ducati (https://www.ducati.com/)
+
+PRIVACIDAD / TÉRMINOS LEGALES:
+- Sección completa #terminos con 6 bloques informativos
+- Política de privacidad (RGPD)
+- Aviso de cookies
+- Aviso legal y limitación de responsabilidad
 
 12) Uso de Bootstrap o Tailwind CSS
 - NO IMPLEMENTADO ACTUALMENTE
